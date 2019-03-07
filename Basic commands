@@ -2,8 +2,8 @@
 //* DELECAO DOS ARQUIVOS SAM FIXOS 
 //SYSPRINT  DD SYSOUT=*            
 //SYSIN     DD *                   
- DELETE (S8.R231W01.SAM -          
-        S8.COMANDO.SFTP.SAM) PURGE 
+ DELETE (TESTE.SAM -          
+        TESTE.SAM) PURGE 
  IF MAXCC EQ 8 THEN SET MAXCC EQ 0 
 //*                                
 /*
@@ -11,16 +11,16 @@
 //* CRIA ARQUIVO SAM COM VAZIO                     
 //SYSPRINT DD DUMMY                                
 //SYSIN    DD DUMMY                                
-//SYSUT2   DD DSN=J1.TESTE.SAM,                    
+//SYSUT2   DD DSN=AA.TESTE.SAM,                    
 //            DISP=(,CATLG,DELETE),                
 //            UNIT=WSMS,SPACE=(TRK,(1,1),RLSE),    
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)
 //*                                                
 /*
-//*SORT ARQUIVO J1.TESTE.VITIRAB.SAM                            
+//*SORT ARQUIVO AA.TESTE.VITIRAB.SAM                            
 //STEP04   EXEC PGM=SORT,COND=(0,NE)                            
-//SORTIN   DD DSN=J1.TESTE.VITIRAB.SAM,DISP=SHR                 
-//SORTOUT  DD DSN=J1.TESTE2.VITIRAB.SAM,DISP=(NEW,CATLG,DELETE),
+//SORTIN   DD DSN=AA.TESTE.VITIRAB.SAM,DISP=SHR                 
+//SORTOUT  DD DSN=AA.TESTE2.VITIRAB.SAM,DISP=(NEW,CATLG,DELETE),
 //            UNIT=WSMS,SPACE=(TRK,(1,1),RLSE),                 
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)             
 //SYSOUT   DD SYSOUT=*                                          
