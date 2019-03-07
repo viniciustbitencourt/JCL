@@ -1,0 +1,34 @@
+//STEP01   EXEC PGM=IDCAMS         
+//* DELECAO DOS ARQUIVOS SAM FIXOS 
+//SYSPRINT  DD SYSOUT=*            
+//SYSIN     DD *                   
+ DELETE (S8.R231W01.SAM -          
+        S8.COMANDO.SFTP.SAM) PURGE 
+ IF MAXCC EQ 8 THEN SET MAXCC EQ 0 
+//*                                
+/*
+//STEP01   EXEC PGM=IEBGENER,COND=(0,NE)           
+//* CRIA ARQUIVO SAM COM VAZIO                     
+//SYSPRINT DD DUMMY                                
+//SYSIN    DD DUMMY                                
+//SYSUT2   DD DSN=J1.TESTE.SAM,                    
+//            DISP=(,CATLG,DELETE),                
+//            UNIT=WSMS,SPACE=(TRK,(1,1),RLSE),    
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)
+//*                                                
+/*
+//*SORT ARQUIVO J1.TESTE.VITIRAB.SAM                            
+//STEP04   EXEC PGM=SORT,COND=(0,NE)                            
+//SORTIN   DD DSN=J1.TESTE.VITIRAB.SAM,DISP=SHR                 
+//SORTOUT  DD DSN=J1.TESTE2.VITIRAB.SAM,DISP=(NEW,CATLG,DELETE),
+//            UNIT=WSMS,SPACE=(TRK,(1,1),RLSE),                 
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)             
+//SYSOUT   DD SYSOUT=*                                          
+//SYSIN    DD *                                                 
+  SORT FIELDS=(01,10,BI,D)                                      
+/*                                                              
+//*TIPOS DE SORT                                                
+//*MERGE                                                        
+MERGE FIELDS=COPY                                               
+INCLUDE COND=((12,10,CH,EQ,C'PFABCCAABB'),                      
+       AND,(23,11,CH,EQ,C'45076444444'))                          
