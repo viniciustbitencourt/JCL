@@ -1,0 +1,18 @@
+//* DLM                                             
+//STEP07   EXEC PGM=IKJEFT01,COND=(0,NE)            
+//* COPY SAM PARA HFS        
+//INMVS    DD DATA,DLM=@@                           
+ ascii                                              
+ cd /share/            
+ ls -1                                              
+@@                                                  
+/*                                                  
+//OUTHFS   DD FILEDATA=TEXT,                        
+//            PATHOPTS=(OWRONLY,OCREAT,OTRUNC),     
+//            PATHMODE=SIRWXU,                      
+//            PATH='/u/#gpr/prdbat/prapsor1.sftpcmd'
+//            PATH='/u/#gpr/prdbat/prapsor1.lscmd'  
+//SYSTSPRT DD SYSOUT=*                              
+//SYSTSIN  DD *                                     
+  OCOPY IND(INMVS) OUTDD(OUTHFS)                    
+/*                      
